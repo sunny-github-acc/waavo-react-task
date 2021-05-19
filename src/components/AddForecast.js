@@ -40,6 +40,7 @@ const AddForecast = () => {
           }
         })
         .catch((error) => {
+          console.log("error: ", error);
           setError(true);
         });
     };
@@ -67,6 +68,7 @@ const AddForecast = () => {
           }
         })
         .catch((error) => {
+          console.log("error: ", error);
           setError(true);
         });
     };
@@ -89,12 +91,12 @@ const AddForecast = () => {
   };
   return (
     <div className={"text-center title "}>
-      <div className="input-section search-loaction">
+      <div className="input-section search-loaction input-container ">
         <input
           onChange={(e) => handleChange(e)}
           name={"city"}
           placeholder={"City.."}
-          className="form-control text-muted form-rounded p-4 shadow-sm "
+          className="form-control text-muted form-rounded p-4 shadow-sm input"
         />
       </div>
       <button onClick={addForecast} className=" btn btn-primary">

@@ -114,6 +114,16 @@ body {
   letter-spacing: -2px;
 }
 
+.main-title{
+  padding: 20px;  
+} 
+.input-container{
+  display: flex;
+  justify-content: center;
+}
+.input {
+  max-width: 300px;
+}
 .weekly {
   display: flex;
   max-width: 100vw;

@@ -6,8 +6,8 @@ const Forecasts = () => {
   const allForecasts = useSelector((state) => state.forecasts);
 
   return (
-    <div className={""}>
-      <h2>Forecasts</h2> <AddForecast />
+    <div>
+      <h2 className={"main-title"}>Forecasts</h2> <AddForecast />
       {allForecasts.map((forecast) => {
         if (forecast.id !== 1)
           return (
