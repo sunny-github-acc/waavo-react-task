@@ -40,7 +40,6 @@ const AddForecast = () => {
           }
         })
         .catch((error) => {
-          console.log("error: ", error);
           setError(true);
         });
     };
@@ -68,7 +67,6 @@ const AddForecast = () => {
           }
         })
         .catch((error) => {
-          console.log("error: ", error);
           setError(true);
         });
     };
