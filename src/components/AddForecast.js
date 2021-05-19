@@ -3,11 +3,15 @@ import { useDispatch } from "react-redux";
 
 const AddForecast = () => {
   const dispatch = useDispatch();
-  const [city, setCity] = useState("klaipeda");
+  const [city, setCity] = useState("");
+  const [error, setError] = useState(false);
 
   const [weather, setWeather] = useState();
 
   useEffect(() => {
+    setError(false);
+    if (!city) return;
+
     const URL =
       "http://api.openweathermap.org/data/2.5/weather?q=" +
       city +
@@ -21,7 +25,6 @@ const AddForecast = () => {
       await fetch(URL)
         .then((res) => res.json())
         .then((data) => {
-          console.log("data: ", weather);
           if (parseInt(data.cod) === 200) {
             setWeather((prev) => ({
               ...prev,
@@ -37,7 +40,7 @@ const AddForecast = () => {
           }
         })
         .catch((error) => {
-          console.log(error);
+          setError(true);
         });
     };
     const fetchDataWeek = async () => {
@@ -64,7 +67,7 @@ const AddForecast = () => {
           }
         })
         .catch((error) => {
-          console.log(error);
+          setError(true);
         });
     };
     fetchData();
@@ -77,21 +80,27 @@ const AddForecast = () => {
   };
 
   const addForecast = () => {
+    if (!weather) return;
+
     dispatch({
       type: "CREATE_FORECAST",
       payload: weather,
     });
   };
   return (
-    <div className={"add"}>
-      <div className="input-section">
+    <div className={"text-center title "}>
+      <div className="input-section search-loaction">
         <input
           onChange={(e) => handleChange(e)}
           name={"city"}
           placeholder={"City.."}
+          className="form-control text-muted form-rounded p-4 shadow-sm "
         />
       </div>
-      <button onClick={addForecast}>Search</button>
+      <button onClick={addForecast} className=" btn btn-primary">
+        Search
+      </button>
+      {error && <p>No such city</p>}
     </div>
   );
 };
