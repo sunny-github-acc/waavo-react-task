@@ -5,6 +5,16 @@ import { weatherConditions } from "./icons/weatherConditions";
 const Forecast = (props) => {
   const [isDaily, setIsDaily] = useState(true);
   const dispatch = useDispatch();
+
+  if (!props.daily)
+    return (
+      <div className={"forecast-wrapper   my-4"}>
+        <div className="forecasts text-center title">
+          We could not find such location
+        </div>
+      </div>
+    );
+
   const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const date = new Date(props.weekly.days.day_1.date);
   const year = new Intl.DateTimeFormat("en", { year: "numeric" }).format(date);

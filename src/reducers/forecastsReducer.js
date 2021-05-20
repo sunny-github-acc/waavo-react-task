@@ -11,7 +11,20 @@ const forecastsReducer = (state = initalState, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case "REQUEST_DATA":
+      return state;
+
     case "CREATE_FORECAST":
+      if (!payload) return state;
+      if (payload.error)
+        return [
+          ...state.filter((s) => s.saved === true),
+          {
+            id: uuid(),
+            error: true,
+            saved: false,
+          },
+        ];
       return [
         ...state.filter((s) => s.saved === true),
         {
