@@ -1,25 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { search } from "./icons/search";
 
 const AddForecast = () => {
   const dispatch = useDispatch();
   const [city, setCity] = useState("");
+  const [weather, setWeather] = useState();
+  const [message, setMessage] = useState("");
+  const [messageDisplay, setMessageDisplay] = useState(false);
   const [error, setError] = useState(false);
 
-  const [weather, setWeather] = useState();
-
-  useEffect(() => {
+  const getData = () => {
     setError(false);
-    if (!city) return;
+    setMessage("");
+    setMessageDisplay(false);
 
+    if (!city) return setMessage("Enter a city name");
+
+    const API = "fe9a370dc20ad36fad8f9a1d94ae25c9";
     const URL =
       "http://api.openweathermap.org/data/2.5/weather?q=" +
       city +
-      "&units=metric&appid=fe9a370dc20ad36fad8f9a1d94ae25c9";
+      "&units=metric&appid=" +
+      API;
     const weekURL =
       "http://api.openweathermap.org/data/2.5/forecast?q=" +
       city +
-      "&units=metric&appid=fe9a370dc20ad36fad8f9a1d94ae25c9";
+      "&units=metric&appid=" +
+      API;
 
     const fetchData = async () => {
       await fetch(URL)
@@ -35,6 +43,7 @@ const AddForecast = () => {
                 temp_max: data.main.temp_max,
                 temp_min: data.main.temp_min,
                 clouds: data.weather[0].description,
+                saved: false,
               },
             }));
           }
@@ -43,6 +52,7 @@ const AddForecast = () => {
           setError(true);
         });
     };
+
     const fetchDataWeek = async () => {
       await fetch(weekURL)
         .then((res) => res.json())
@@ -58,49 +68,71 @@ const AddForecast = () => {
                   description: data.list[i * 8].weather[0].description,
                 })
             );
+
             setWeather((prev) => ({
               ...prev,
               weekly: {
                 days,
               },
             }));
+          } else if (parseInt(data.cod) === 404) {
+            setMessage("We could not find such city");
           }
         })
         .catch((error) => {
           setError(true);
         });
     };
+
     fetchData();
     fetchDataWeek();
-  }, [city]);
+  };
 
   const handleChange = (e) => {
-    e.persist();
     setCity(e.target.value);
   };
 
-  const addForecast = () => {
-    if (!weather) return;
+  const addForecast = (e) => {
+    e.preventDefault();
 
-    dispatch({
-      type: "CREATE_FORECAST",
-      payload: weather,
-    });
+    getData();
+    setMessageDisplay(true);
   };
+
+  useEffect(() => {
+    if (!weather) return;
+    if (!weather.weekly || !weather.weekly) return;
+
+    const dispatchForecast = () => {
+      dispatch({
+        type: "CREATE_FORECAST",
+        payload: weather,
+      });
+    };
+    dispatchForecast();
+  }, [weather, dispatch]);
+
   return (
-    <div className={"text-center title "}>
-      <div className="input-section search-loaction input-container ">
-        <input
-          onChange={(e) => handleChange(e)}
-          name={"city"}
-          placeholder={"City.."}
-          className="form-control text-muted form-rounded p-4 shadow-sm input"
-        />
-      </div>
-      <button onClick={addForecast} className=" btn btn-primary">
-        Search
-      </button>
-      {error && <p>No such city</p>}
+    <div className={"title"}>
+      <form onSubmit={addForecast}>
+        <div className="input-container">
+          <input
+            onChange={(e) => handleChange(e)}
+            name="city"
+            placeholder={"City.."}
+            className="form-control form-rounded p-4 shadow-sm input"
+          />
+          <button
+            type="submit"
+            className="btn btn-primary form-control form-rounded p-4 shadow-sm search"
+            name="city"
+          >
+            {search}
+          </button>
+        </div>
+        {messageDisplay && <p>{message}</p>}
+        {error && <p>There has been an error</p>}
+      </form>
     </div>
   );
 };

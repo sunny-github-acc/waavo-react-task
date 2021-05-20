@@ -7,19 +7,23 @@ const Forecasts = () => {
 
   return (
     <div>
-      <h2 className={"main-title"}>Forecasts</h2> <AddForecast />
-      {allForecasts.map((forecast) => {
-        if (forecast.id !== 1)
-          return (
-            <Forecast
-              key={forecast.id}
-              id={forecast.id}
-              daily={forecast.daily}
-              weekly={forecast.weekly}
-            />
-          );
-        return null;
-      })}
+      <h2 className="main-title p-2">Forecasts</h2> <AddForecast />
+      {allForecasts
+        .slice(0)
+        .reverse()
+        .map((forecast) => {
+          if (forecast.id !== 1)
+            return (
+              <Forecast
+                key={forecast.id}
+                id={forecast.id}
+                daily={forecast.daily}
+                weekly={forecast.weekly}
+                saved={forecast.saved}
+              />
+            );
+          return null;
+        })}
     </div>
   );
 };
