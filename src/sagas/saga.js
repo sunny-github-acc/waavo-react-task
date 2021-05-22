@@ -7,7 +7,7 @@ function* asyncSearch(action) {
   var results = yield call(getData, payload);
 
   yield put({ type: "CREATE_FORECAST", payload: results });
-  console.log("results: ", results);
+
   yield put({ type: "SET_PENDING", payload: false });
 }
 

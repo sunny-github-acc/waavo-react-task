@@ -6,7 +6,7 @@ const Forecast = (props) => {
   const [isDaily, setIsDaily] = useState(true);
   const dispatch = useDispatch();
 
-  if (!props.daily)
+  if (props.error)
     return (
       <h5 className="forecast-wrapper font-weight-normal my-1">
         We could not find such location
@@ -14,26 +14,26 @@ const Forecast = (props) => {
     );
 
   const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  const date = new Date(props.weekly.days.day_1.date);
+  const date = new Date(props.daily[0].date);
   const year = new Intl.DateTimeFormat("en", { year: "numeric" }).format(date);
   const month = new Intl.DateTimeFormat("en", { month: "short" }).format(date);
   const day = new Intl.DateTimeFormat("en", { day: "2-digit" }).format(date);
   const dateDDMMYY = `${day}-${month}-${year}`;
 
-  function weeklyWeather(day) {
+  function getWeather(day) {
     let currentWeather;
 
     switch (true) {
-      case props.weekly.days[`day_${day}`].description.includes("cloud"):
+      case props.weekly[day].description.includes("cloud"):
         currentWeather = weatherConditions["cloud"];
         break;
-      case props.weekly.days[`day_${day}`].description.includes("rain"):
+      case props.weekly[day].description.includes("rain"):
         currentWeather = weatherConditions["rain"];
         break;
-      case props.weekly.days[`day_${day}`].description.includes("sky"):
+      case props.weekly[day].description.includes("sky"):
         currentWeather = weatherConditions["sky"];
         break;
-      case props.weekly.days[`day_${day}`].description.includes("snow"):
+      case props.weekly[day].description.includes("snow"):
         currentWeather = weatherConditions["snow"];
         break;
       default:
@@ -46,18 +46,14 @@ const Forecast = (props) => {
   const saveForecast = () => {
     dispatch({
       type: "SAVE_FORECAST",
-      payload: {
-        id: props.id,
-      },
+      payload: props.id,
     });
   };
 
   const deleteForecast = () => {
     dispatch({
       type: "DELETE_FORECAST",
-      payload: {
-        id: props.id,
-      },
+      payload: props.id,
     });
   };
 
@@ -65,32 +61,34 @@ const Forecast = (props) => {
     <>
       <div className="flex">
         <div className="text-left mr-2">
-          <h2 className="my-0">{props.daily.city}</h2>
+          <h2 className="my-0">
+            {props.location.city}, {props.location.country}
+          </h2>
           <h5 className="font-weight-normal">{dateDDMMYY}</h5>
-          <p className="my-2">{weeklyWeather(1)}</p>
+          <p className="my-2">{getWeather(0)}</p>
           <p className="my-2">
-            {props.daily.clouds[0].toUpperCase() +
-              props.daily.clouds.substring(1)}
+            {props.daily[0].clouds[0].toUpperCase() +
+              props.daily[0].clouds.substring(1)}
           </p>
         </div>
         {isDaily && (
           <div className="ml-2">
             <p className="display-1 text-right temperature">
-              {props.daily.temp < 0 ? "-" : "+"}
-              {Math.trunc(props.daily.temp)}&deg;
+              {props.daily[0].temp < 0 ? "-" : "+"}
+              {Math.trunc(props.daily[0].temp)}&deg;
             </p>
             {/* <p className="daily">
-                Feels like: {props.daily.temp < 0 ? "-" : "+"}
-                {Math.trunc(props.daily.feels_like)}&deg;
+                Feels like: {props.daily[0].temp < 0 ? "-" : "+"}
+                {Math.trunc(props.daily[0].feels_like)}&deg;
               </p> */}
             <div className="flex flex-right">
               <h5 className="font-weight-bold">
-                {props.daily.temp < 0 ? "-" : "+"}
-                {Math.trunc(props.daily.temp_max)}&deg; /
+                {props.daily[0].temp < 0 ? "-" : "+"}
+                {Math.trunc(props.daily[0].temp_max)}&deg; /
               </h5>
               <h5 className=" ">
-                {props.daily.temp < 0 ? "-" : "+"}
-                {Math.trunc(props.daily.temp_min)}&deg;
+                {props.daily[0].temp < 0 ? "-" : "+"}
+                {Math.trunc(props.daily[0].temp_min)}&deg;
               </h5>
             </div>
           </div>
@@ -100,23 +98,17 @@ const Forecast = (props) => {
         <div className="flex">
           {Array.apply(null, Array(5)).map((x, i) => (
             <div className={i % 2 === 0 ? "" : "odd"} key={i}>
-              <p>
-                {
-                  weekDays[
-                    new Date(props.weekly.days[`day_${i + 1}`].date).getDay()
-                  ]
-                }
-              </p>
-              <p>{weeklyWeather(i + 1)}</p>
+              <p>{weekDays[new Date(props.weekly[i].date).getDay()]}</p>
+              <p>{getWeather(i)}</p>
               <div className="flex">
                 <p className="font-weight-bold">
-                  {props.daily.temp < 0 ? "-" : "+"}
-                  {Math.trunc(props.weekly.days[`day_${i + 1}`].temp_max)}
+                  {props.daily[i].temp < 0 ? "-" : "+"}
+                  {Math.trunc(props.weekly[i].temp_max)}
                   &deg;
                 </p>
                 <p className=" ">
-                  {props.daily.temp < 0 ? "-" : "+"}
-                  {Math.trunc(props.weekly.days[`day_${i + 1}`].temp_min)}
+                  {props.daily[i].temp < 0 ? "-" : "+"}
+                  {Math.trunc(props.weekly[i].temp_min)}
                   &deg;
                 </p>
               </div>

@@ -22,15 +22,11 @@ const forecastsReducer = (state = initalState, action) => {
       return pendingState;
 
     case "CREATE_FORECAST":
-      if (!payload) return state;
-
       if (payload.error)
         return [
           ...state.filter((s) => s.saved === true),
           {
-            id: uuid(),
             error: true,
-            saved: false,
           },
         ];
 
@@ -38,9 +34,10 @@ const forecastsReducer = (state = initalState, action) => {
         ...state.filter((s) => s.saved === true),
         {
           id: uuid(),
+          location: payload.location,
           daily: payload.daily,
           weekly: payload.weekly,
-          saved: payload.daily.saved,
+          saved: false,
         },
       ];
 
@@ -48,7 +45,7 @@ const forecastsReducer = (state = initalState, action) => {
       const savedStateCopy = [...state];
 
       savedStateCopy.map((i, index) => {
-        if (i.id === payload.id) {
+        if (i.id === payload) {
           return (savedStateCopy[index].saved = true);
         }
         return i;
@@ -58,7 +55,7 @@ const forecastsReducer = (state = initalState, action) => {
 
     case "DELETE_FORECAST":
       const copyState = [...state];
-      const i = copyState.findIndex((x) => x.id === payload.id);
+      const i = copyState.findIndex((x) => x.id === payload);
       copyState.splice(i, 1);
       return [...copyState];
 

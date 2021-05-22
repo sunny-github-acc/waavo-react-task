@@ -18,9 +18,11 @@ const Forecasts = () => {
               <Forecast
                 key={forecast.id}
                 id={forecast.id}
+                location={forecast.location}
                 daily={forecast.daily}
                 weekly={forecast.weekly}
                 saved={forecast.saved}
+                error={forecast.error}
               />
             );
           return null;
