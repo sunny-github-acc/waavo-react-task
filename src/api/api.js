@@ -42,7 +42,8 @@ export const getData = async (city) => {
       .get(weeklyURL)
       .then((response) => {
         response = response.data;
-        let days = {};
+        let days = {},
+          currentDay = {};
 
         Array.apply(null, Array(5)).map(
           (x, i) =>
@@ -54,7 +55,9 @@ export const getData = async (city) => {
             })
         );
 
-        return (weekly = { days });
+        currentDay = { response };
+
+        return (weekly = { days, currentDay });
       })
       .catch((err) => {
         return (error = err);

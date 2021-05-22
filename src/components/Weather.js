@@ -6,8 +6,8 @@ const Forecasts = () => {
   const allForecasts = useSelector((state) => state.forecasts);
 
   return (
-    <div>
-      <h2 className="main-title">Forecasts</h2>{" "}
+    <>
+      <h2 className="mt-4">Forecasts</h2>{" "}
       <AddForecast pending={allForecasts[0].pending} />
       {allForecasts
         .slice(0)
@@ -25,7 +25,7 @@ const Forecasts = () => {
             );
           return null;
         })}
-    </div>
+    </>
   );
 };
 

@@ -1,5 +1,12 @@
+:root {
+  --blue: #57c4e2;
+}
+
 body {
+  background: #fffc62;
+  color: var(--blue);
   margin: 0;
+  padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -7,84 +14,93 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;400;700&display=swap');
-
-body {
-  font-family: 'Raleway', sans-serif;
-  background: #fffc62;
-  color: #57c4e2;
-  margin: 0;
-  padding: 0;
-} 
-
-.title {
-  font-weight: 700;
-  font-size: 25px;
+/* GENERAL */
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.form-rounded {
+.flex-right {
+  justify-content: flex-end;
+}
+
+.rounded-element {
   border-radius: 2em;
 }
-   
-.main-title{
-  margin-top: 30px; 
-} 
-.input-container{
-  display: flex; 
-  align-items: center;
-  justify-content: center; 
-  padding-top: 20px; 
-}
+
+/* INPUT */
+
 .input {
   max-width: 300px;
+  min-width: 200px;
 }
-.search {
-  display: flex; 
+
+.submit {
+  display: flex;
   justify-content: center;
   align-items: center;
   width: 70px;
-  position: relative;
-  margin-left: 230px
-} 
+  left: calc(50vw + 80px);
+  position: absolute;
+  border: 1px solid #ced4da;
+  transition: all .1s;
+  background: var(--blue);
+}
+
+.submit:hover {
+  transition: all .1s;
+  background: #5197e7;
+  border: 1px solid #ced4da;
+}
+
+.submit:disabled {
+  transition: all .1s;
+  background: var(--blue)59;
+  border: 1px solid #ced4da;
+}
+
+/* HERO */
 .weekly {
   display: flex;
   max-width: 100vw;
-  justify-content: center; flex-wrap: wrap;
+  justify-content: center;
+  flex-wrap: wrap;
 }
-.day {
-  min-width: 15vw; 
-}
-.min-max {
+
+.main {
   display: flex;
-  padding-left: 10px;
-  padding-right: 10px;
-  justify-content: center;  
+  justify-content: space-around;
+  width: 50vw;
 }
-.min {
-  margin-left: 10px;
-  font-weight: 400;  
+
+.main .info {
+  text-align: left;
 }
+
+.main .conditions {
+  max-width: 100px;
+  word-spacing: 100vw;
+  font-size: 18px;
+}
+
+.temperature {
+  margin-top: -30px;
+  margin-right: -8px;
+}
+
 .odd {
   background: rgb(251, 253, 141);
-} 
+}
+
 .btn {
   border: 1px solid rgba(0, 0, 0, 0.164);
-}  
-.submit {
-  position: absolute;
 }
-.pendingg { 
-  height: 0; 
-  padding-bottom: 30px;  
-  line-height: 30px;
-}
-.pending { 
+
+
+.pending {
   position: flex;
-  height:0;
-  padding-bottom: 25px;  
-  padding-top: 5px;  
+  height: 0;
+  padding-bottom: 25px;
+  padding-top: 15px;
 }

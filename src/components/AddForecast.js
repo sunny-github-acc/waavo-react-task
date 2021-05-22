@@ -31,28 +31,26 @@ const AddForecast = ({ pending }) => {
   };
 
   return (
-    <div className={"title"}>
-      <form onSubmit={addForecast}>
-        <div className="input-container">
-          <input
-            onChange={(e) => handleChange(e)}
-            name="city"
-            placeholder={"Location.."}
-            className="form-control form-rounded p-4 shadow-sm input"
-          />
-          <button
-            type="submit"
-            className="btn btn-primary form-control form-rounded p-4 shadow-sm search submit"
-            name="city"
-            disabled={pending}
-          >
-            {search}
-          </button>
-        </div>
-        <div className="pending">{pending && <Spin />} </div>
-        {noCity && <div>Please enter a location</div>}
-      </form>
-    </div>
+    <form onSubmit={addForecast} className="mt-4">
+      <div className="flex">
+        <input
+          onChange={(e) => handleChange(e)}
+          name="city"
+          placeholder={"Location.."}
+          className="form-control rounded-element p-4 mx-4 shadow-sm input"
+        />
+        <button
+          type="submit"
+          className="form-control rounded-element p-4  btn-primary shadow-sm submit"
+          name="city"
+          disabled={pending}
+        >
+          {search}
+        </button>
+      </div>
+      <div className="pending">{pending && <Spin />} </div>
+      {noCity && <div>Please enter a location</div>}
+    </form>
   );
 };
 
