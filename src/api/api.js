@@ -31,7 +31,7 @@ export const getData = async (city) => {
             feels_like: response.list[i].main.feels_like,
             temp_max: response.list[i].main.temp_max,
             temp_min: response.list[i].main.temp_min,
-            clouds: response.list[i].weather[0].description,
+            description: response.list[i].weather[0].description,
             saved: false,
           };
           weekly[i] = {

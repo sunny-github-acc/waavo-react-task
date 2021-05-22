@@ -25,8 +25,20 @@ body {
   justify-content: flex-end;
 }
 
+.flex-align-top {
+  align-items: flex-start;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
 .rounded-element {
   border-radius: 2em;
+}
+
+.border-bottom {
+  border-bottom: 3px solid var(--blue) !important;
 }
 
 /* INPUT */
@@ -45,48 +57,41 @@ body {
   position: absolute;
   border: 1px solid #ced4da;
   transition: all .1s;
+}
+
+.submit.form-control {
   background: var(--blue);
 }
 
-.submit:hover {
+.submit.form-control:hover {
   transition: all .1s;
-  background: #5197e7;
-  border: 1px solid #ced4da;
+  background: #3aabca;
 }
 
-.submit:disabled {
+.submit.form-control:disabled {
   transition: all .1s;
-  background: var(--blue)59;
+  background: #8abefa;
   border: 1px solid #ced4da;
+  color: white;
+}
+
+.form-control>svg {
+  color: white;
 }
 
 /* HERO */
-.weekly {
-  display: flex;
-  max-width: 100vw;
-  justify-content: center;
-  flex-wrap: wrap;
+@media only screen and (max-width: 576px) {
+  .display-1 {
+    font-size: 65px;
+    margin-top: -10px;
+    margin-right: -5px;
+  }
 }
 
-.main {
-  display: flex;
-  justify-content: space-around;
-  width: 50vw;
-}
 
-.main .info {
-  text-align: left;
-}
-
-.main .conditions {
-  max-width: 100px;
-  word-spacing: 100vw;
-  font-size: 18px;
-}
-
-.temperature {
-  margin-top: -30px;
-  margin-right: -8px;
+.display-1 {
+  margin-top: -20px;
+  margin-right: -10px;
 }
 
 .odd {
@@ -95,6 +100,17 @@ body {
 
 .btn {
   border: 1px solid rgba(0, 0, 0, 0.164);
+}
+
+.disable-btn-style {
+  border: none;
+  background: transparent;
+  color: inherit;
+  outline: none !important;
+}
+
+.disable-btn-style:active {
+  outline: none !important;
 }
 
 

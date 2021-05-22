@@ -11,6 +11,11 @@ const AddForecast = ({ pending }) => {
 
   const handleChange = (e) => {
     setNoCity(false);
+
+    dispatch({
+      type: "CLEAR_ERROR",
+    });
+
     setCity(e.target.value);
   };
 
@@ -41,7 +46,7 @@ const AddForecast = ({ pending }) => {
         />
         <button
           type="submit"
-          className="form-control rounded-element p-4  btn-primary shadow-sm submit"
+          className="form-control rounded-element p-4 shadow-sm submit"
           name="city"
           disabled={pending}
         >
@@ -49,7 +54,14 @@ const AddForecast = ({ pending }) => {
         </button>
       </div>
       <div className="pending">{pending && <Spin />} </div>
-      {noCity && <div>Please enter a location</div>}
+      {noCity && (
+        <h5
+          className="mb-4 alert alert-primary font-weight-normal"
+          key="no-city"
+        >
+          Please enter a location
+        </h5>
+      )}
     </form>
   );
 };

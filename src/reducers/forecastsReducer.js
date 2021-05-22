@@ -15,17 +15,12 @@ const forecastsReducer = (state = initalState, action) => {
     case "REQUEST_DATA":
       return state;
 
-    case "SET_PENDING":
-      const pendingState = [...state];
-      pendingState[0].pending = payload;
-
-      return pendingState;
-
     case "CREATE_FORECAST":
       if (payload.error)
         return [
           ...state.filter((s) => s.saved === true),
           {
+            id: uuid(),
             error: true,
           },
         ];
@@ -58,6 +53,15 @@ const forecastsReducer = (state = initalState, action) => {
       const i = copyState.findIndex((x) => x.id === payload);
       copyState.splice(i, 1);
       return [...copyState];
+
+    case "SET_PENDING":
+      const pendingState = [...state];
+      pendingState[0].pending = payload;
+
+      return pendingState;
+
+    case "CLEAR_ERROR":
+      return [...state.filter((s) => s.saved === true)];
 
     default:
       return state;

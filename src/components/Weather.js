@@ -2,7 +2,7 @@ import Forecast from "./Forecast";
 import { useSelector } from "react-redux";
 import AddForecast from "./AddForecast";
 
-const Forecasts = () => {
+const Weather = () => {
   const allForecasts = useSelector((state) => state.forecasts);
 
   return (
@@ -21,7 +21,6 @@ const Forecasts = () => {
                 location={forecast.location}
                 daily={forecast.daily}
                 weekly={forecast.weekly}
-                saved={forecast.saved}
                 error={forecast.error}
               />
             );
@@ -31,4 +30,4 @@ const Forecasts = () => {
   );
 };
 
-export default Forecasts;
+export default Weather;
