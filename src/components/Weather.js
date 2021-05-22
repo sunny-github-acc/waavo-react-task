@@ -7,7 +7,8 @@ const Forecasts = () => {
 
   return (
     <div>
-      <h2 className="main-title p-2">Forecasts</h2> <AddForecast />
+      <h2 className="main-title">Forecasts</h2>{" "}
+      <AddForecast pending={allForecasts[0].pending} />
       {allForecasts
         .slice(0)
         .reverse()

@@ -64,7 +64,7 @@ const Forecast = (props) => {
   };
 
   return (
-    <div className={"forecast-wrapper   my-4"}>
+    <div className={"forecast-wrapper"}>
       <div className="forecasts text-center title">
         <p className=" ">{props.daily.city}</p>
         <p className=" ">{dateDDMMYY}</p>
@@ -72,20 +72,20 @@ const Forecast = (props) => {
           <div className="daily">
             <p className="  condition-temp">
               {props.daily.temp < 0 ? "-" : "+"}
-              {Math.trunc(props.daily.temp)} {weeklyWeather(1)}
+              {Math.trunc(props.daily.temp)}&deg; {weeklyWeather(1)}
             </p>
             <p className="daily">
               Feels like: {props.daily.temp < 0 ? "-" : "+"}
-              {Math.trunc(props.daily.feels_like)}
+              {Math.trunc(props.daily.feels_like)}&deg;
             </p>
             <div className="min-max">
               <p className="max">
-                Min: {props.daily.temp < 0 ? "-" : "+"}
-                {Math.trunc(props.daily.temp_min)}&deg;
-              </p>
-              <p className="min">
                 Max: {props.daily.temp < 0 ? "-" : "+"}
                 {Math.trunc(props.daily.temp_max)}&deg;
+              </p>
+              <p className="min">
+                Min: {props.daily.temp < 0 ? "-" : "+"}
+                {Math.trunc(props.daily.temp_min)}&deg;
               </p>
             </div>
           </div>

@@ -36,9 +36,8 @@ body {
 .input-container{
   display: flex; 
   align-items: center;
-  justify-content: center;
-  margin-left: 90px;
-  
+  justify-content: center; 
+  padding-top: 20px; 
 }
 .input {
   max-width: 300px;
@@ -49,7 +48,7 @@ body {
   align-items: center;
   width: 70px;
   position: relative;
-  left: -50px
+  margin-left: 230px
 } 
 .weekly {
   display: flex;
@@ -74,4 +73,18 @@ body {
 } 
 .btn {
   border: 1px solid rgba(0, 0, 0, 0.164);
-} 
+}  
+.submit {
+  position: absolute;
+}
+.pendingg { 
+  height: 0; 
+  padding-bottom: 30px;  
+  line-height: 30px;
+}
+.pending { 
+  position: flex;
+  height:0;
+  padding-bottom: 25px;  
+  padding-top: 5px;  
+}
