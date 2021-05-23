@@ -22,6 +22,7 @@ const forecastsReducer = (state = initalState, action) => {
           {
             id: uuid(),
             error: true,
+            location: payload.location,
           },
         ];
 

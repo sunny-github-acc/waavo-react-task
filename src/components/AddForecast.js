@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { search } from "./icons/search";
-import Spin from "antd/es/spin";
-import "antd/lib/spin/style/index.css";
+import { weatherConditions } from "./icons/weatherConditions";
 
 const AddForecast = ({ pending }) => {
   const dispatch = useDispatch();
@@ -36,33 +35,34 @@ const AddForecast = ({ pending }) => {
   };
 
   return (
-    <form onSubmit={addForecast} className="mt-4">
-      <div className="flex">
-        <input
-          onChange={(e) => handleChange(e)}
-          name="city"
-          placeholder={"Location.."}
-          className="form-control rounded-element p-4 mx-4 shadow-sm input"
-        />
-        <button
-          type="submit"
-          className="form-control rounded-element p-4 shadow-sm submit"
-          name="city"
-          disabled={pending}
-        >
-          {search}
-        </button>
-      </div>
-      <div className="pending">{pending && <Spin />} </div>
+    <nav className="position-fixed" style={{ zIndex: 1 }}>
+      <form onSubmit={addForecast} className="py-2 shadow-sm">
+        <div className="flex mx-4">
+          <span className={`mr-3 ${pending ? "spin" : ""}`}>
+            {weatherConditions.sky}
+          </span>
+          <input
+            onChange={(e) => handleChange(e)}
+            name="city"
+            placeholder={"Location.."}
+            className="form-control rounded-element p-4 shadow-sm input"
+          />
+          <button
+            type="submit"
+            className="form-control rounded-element p-4 shadow-sm submit"
+            name="city"
+            disabled={pending}
+          >
+            {search}
+          </button>
+        </div>
+      </form>
       {noCity && (
-        <h5
-          className="mb-4 alert alert-primary font-weight-normal"
-          key="no-city"
-        >
+        <h5 className="mb-4   alert-info font-weight-normal" key="no-city">
           Please enter a location
         </h5>
       )}
-    </form>
+    </nav>
   );
 };
 

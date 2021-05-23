@@ -45,7 +45,10 @@ export const getData = async (city) => {
 
         return null;
       })
-      .catch(() => (error = true));
+      .catch(() => {
+        error = true;
+        location = city;
+      });
   };
 
   await getData();
