@@ -136,7 +136,10 @@ const Forecasts = ({ id, location, daily, weekly, error }) => {
             })}
           </div>
         )}
-        <div className="btn-group btn-group-toggle p-3" data-toggle="buttons">
+        <div
+          className="btn-group btn-group-toggle p-3 mb-4"
+          data-toggle="buttons"
+        >
           <label className="btn btn-primary">
             <input
               type="radio"

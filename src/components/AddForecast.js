@@ -47,14 +47,16 @@ const AddForecast = ({ pending }) => {
             placeholder={"Location.."}
             className="form-control rounded-element p-4 shadow-sm input"
           />
-          <button
-            type="submit"
-            className="form-control rounded-element p-4 shadow-sm submit"
-            name="city"
-            disabled={pending}
-          >
-            {search}
-          </button>
+          <div className="submit-container">
+            <button
+              type="submit"
+              className="form-control rounded-element p-4 shadow-sm submit flex"
+              name="city"
+              disabled={pending}
+            >
+              {search}
+            </button>
+          </div>
         </div>
       </form>
       {noCity && (
