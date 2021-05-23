@@ -30,6 +30,18 @@ const Forecasts = ({ id, location, daily, weekly, error }) => {
     });
   };
 
+  const refreshForecast = () => {
+    dispatch({
+      type: "SET_PENDING",
+      payload: true,
+    });
+
+    dispatch({
+      type: "REFRESH_FORECAST",
+      payload: { id, location: location.city },
+    });
+  };
+
   const deleteForecast = () => {
     dispatch({
       type: "DELETE_FORECAST",
@@ -39,12 +51,15 @@ const Forecasts = ({ id, location, daily, weekly, error }) => {
 
   return (
     <>
-      <section className="flex flex-column pt-4 main">
+      <section className="flex flex-column pt-3 main">
         <div className="mr-2">
           <h2 className="my-0 font-weight-normal mb-2">
             {location.city}, {location.country}
           </h2>
-          <h5 className="font-weight-light">{currentDate}</h5>
+          <h5 className="font-weight-light mb-1">{currentDate}</h5>
+          <p className="font-weight-light mb-0">
+            {new Date().toLocaleTimeString()}
+          </p>
         </div>
         <div className="ml-2">
           <p className="display-1 temperature">
@@ -126,10 +141,19 @@ const Forecasts = ({ id, location, daily, weekly, error }) => {
             <input
               type="radio"
               name="options"
-              id="option2"
+              id="option1"
               onClick={saveForecast}
-            />{" "}
+            />
             Save
+          </label>
+          <label className="btn btn-primary">
+            <input
+              type="radio"
+              name="options"
+              id="option2"
+              onClick={refreshForecast}
+            />
+            Refresh
           </label>
           <label className="btn btn-secondary">
             <input

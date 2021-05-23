@@ -16,7 +16,7 @@ const forecastsReducer = (state = initalState, action) => {
       return state;
 
     case "CREATE_FORECAST":
-      if (payload.error)
+      if (payload.error) {
         return [
           ...state.filter((s) => s.saved === true),
           {
@@ -25,40 +25,49 @@ const forecastsReducer = (state = initalState, action) => {
             location: payload.location,
           },
         ];
-
-      return [
-        ...state.filter((s) => s.saved === true),
-        {
-          id: uuid(),
-          location: payload.location,
-          daily: payload.daily,
-          weekly: payload.weekly,
-          saved: false,
-        },
-      ];
+      } else {
+        return [
+          ...state.filter((s) => s.saved === true),
+          {
+            id: uuid(),
+            location: payload.location,
+            daily: payload.daily,
+            weekly: payload.weekly,
+            saved: false,
+          },
+        ];
+      }
 
     case "SAVE_FORECAST":
-      const savedStateCopy = [...state];
-
-      savedStateCopy.map((i, index) => {
-        if (i.id === payload) {
-          return (savedStateCopy[index].saved = true);
+      const savedState = [...state];
+      savedState.map((state, index) => {
+        if (state.id === payload) {
+          return (savedState[index].saved = true);
         }
-        return i;
+        return state;
       });
+      return [...savedState];
 
-      return [...savedStateCopy];
+    case "REFRESH_FORECAST_ASYNC":
+      const refreshedState = [...state];
+      refreshedState.map((state, index) => {
+        if (state.id === payload.id) {
+          refreshedState[index].daily = payload.results.daily;
+          refreshedState[index].weekly = payload.results.weekly;
+        }
+        return state;
+      });
+      return [...refreshedState];
 
     case "DELETE_FORECAST":
       const copyState = [...state];
-      const i = copyState.findIndex((x) => x.id === payload);
-      copyState.splice(i, 1);
+      const id = copyState.findIndex((x) => x.id === payload);
+      copyState.splice(id, 1);
       return [...copyState];
 
     case "SET_PENDING":
       const pendingState = [...state];
       pendingState[0].pending = payload;
-
       return pendingState;
 
     case "CLEAR_ERROR":
