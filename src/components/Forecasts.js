@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Forecast from "./Forecast";
 
 const Forecasts = ({ id, location, daily, weekly }) => {
   const [isDaily, setIsDaily] = useState(true);
+  const { pending } = useSelector((state) => state.state);
   const dispatch = useDispatch();
 
   const date = new Date(daily[0].date);
@@ -99,9 +100,9 @@ const Forecasts = ({ id, location, daily, weekly }) => {
           <div className="flex flex-wrap">
             {Object.values(daily).map((hour, i) => {
               return (
-                <div key={hour.date + 0} className={i % 2 === 0 ? "" : "odd"}>
+                <div key={hour.date} className={i % 2 === 0 ? "" : "odd"}>
                   <Forecast
-                    key={hour.date + 1}
+                    key={hour.date}
                     date={hour.date}
                     temp={hour.temp}
                     temp_min={hour.temp_min}
@@ -118,9 +119,9 @@ const Forecasts = ({ id, location, daily, weekly }) => {
           <div className="flex flex-wrap">
             {Object.values(weekly).map((day, i) => {
               return (
-                <div key={day.date + 0} className={i % 2 === 0 ? "" : "odd"}>
+                <div key={day.date} className={i % 2 === 0 ? "" : "odd"}>
                   <Forecast
-                    key={day.date + 1}
+                    key={day.date}
                     date={day.date}
                     temp={day.temp}
                     temp_min={day.temp_min}
@@ -152,6 +153,7 @@ const Forecasts = ({ id, location, daily, weekly }) => {
               name="options"
               id="option2"
               onClick={refreshForecast}
+              disabled={pending}
             />
             Refresh
           </label>
