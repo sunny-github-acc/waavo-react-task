@@ -51,6 +51,8 @@ const forecastsReducer = (state = initalState, action) => {
         }
         return state;
       });
+
+      window.scrollTo(0, 0);
       return [...refreshedState];
 
     case "DELETE_FORECAST":

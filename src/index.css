@@ -5,6 +5,10 @@
   --right: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='rgb(87, 196, 226)' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath d='M2.75 0l-1.5 1.5L3.75 4l-2.5 2.5L2.75 8l4-4-4-4z'/%3e%3c/svg%3e");
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: #fffc62;
   background: var(--yellow);
@@ -19,9 +23,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-
-
-/* GENERAL */
 /* FLEX */
 .flex {
   display: flex;
@@ -60,6 +61,7 @@ body {
 .disable-btn-style:active {
   outline: none !important;
 }
+
 
 /* MISC */
 .rounded-element {
