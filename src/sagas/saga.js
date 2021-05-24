@@ -7,8 +7,8 @@ function* asyncSearch(action) {
   var results = yield call(getData, payload);
 
   yield put({ type: "CREATE_FORECAST", payload: results });
-
   yield put({ type: "SET_PENDING", payload: false });
+  yield put({ type: "UPDATE_FORECAST" });
 }
 
 function* asyncRefresh(action) {
@@ -22,6 +22,7 @@ function* asyncRefresh(action) {
   });
 
   yield put({ type: "SET_PENDING", payload: false });
+  yield put({ type: "UPDATE_FORECAST" });
 }
 
 export function* watchSearch() {

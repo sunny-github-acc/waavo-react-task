@@ -1,18 +1,20 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { search } from "./icons/search";
 import { weatherConditions } from "./icons/weatherConditions";
 
-const AddForecast = ({ pending }) => {
+const AddForecast = () => {
   const dispatch = useDispatch();
   const [city, setCity] = useState("");
   const [noCity, setNoCity] = useState(false);
+  const { pending, error, location } = useSelector((state) => state.state);
 
   const handleChange = (e) => {
     setNoCity(false);
 
     dispatch({
-      type: "CLEAR_ERROR",
+      type: "SET_ERROR",
+      payload: { error: false },
     });
 
     setCity(e.target.value);
@@ -29,13 +31,17 @@ const AddForecast = ({ pending }) => {
     });
 
     dispatch({
+      type: "UPDATE_FORECAST",
+    });
+
+    dispatch({
       type: "REQUEST_DATA",
       payload: city,
     });
   };
 
   return (
-    <nav className="position-fixed" style={{ zIndex: 1 }}>
+    <nav className="position-fixed" style={{ zIndex: 99 }}>
       <form onSubmit={addForecast} className="py-2 shadow-sm">
         <div className="flex mx-4">
           <span className={`mr-3 ${pending ? "spin" : ""}`}>
@@ -59,9 +65,15 @@ const AddForecast = ({ pending }) => {
           </div>
         </div>
       </form>
+
       {noCity && (
         <h5 className="mb-4   alert-info font-weight-normal" key="no-city">
           Please enter a location
+        </h5>
+      )}
+      {error && (
+        <h5 className="mb-4 font-weight-normal alert-warning">
+          We could not find "{location}"
         </h5>
       )}
     </nav>

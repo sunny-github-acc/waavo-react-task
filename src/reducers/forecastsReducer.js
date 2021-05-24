@@ -1,12 +1,6 @@
 import { v4 as uuid } from "uuid";
 
-const initalState = [
-  {
-    id: 1,
-    saved: true,
-    pending: false,
-  },
-];
+const initalState = [];
 
 const forecastsReducer = (state = initalState, action) => {
   const { type, payload } = action;
@@ -65,13 +59,8 @@ const forecastsReducer = (state = initalState, action) => {
       copyState.splice(id, 1);
       return [...copyState];
 
-    case "SET_PENDING":
-      const pendingState = [...state];
-      pendingState[0].pending = payload;
-      return pendingState;
-
-    case "CLEAR_ERROR":
-      return [...state.filter((s) => s.saved === true)];
+    case "UPDATE_FORECAST":
+      return [...state.filter((s) => s.error !== true)];
 
     default:
       return state;

@@ -46,7 +46,6 @@ export const getData = async (city) => {
         return null;
       })
       .catch(() => {
-        console.log("response: ", city);
         error = true;
         location = city;
       });

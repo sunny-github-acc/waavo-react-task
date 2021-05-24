@@ -41,6 +41,10 @@ body {
   flex-direction: column;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 /* BUTTONS */
 .btn {
   border: 1px solid rgba(0, 0, 0, 0.164);
@@ -115,16 +119,19 @@ form .spin {
   transition: all .1s;
 }
 
-.submit.form-control {
+.submit.form-control,
+.btn-primary {
   background: var(--blue);
 }
 
-.submit.form-control:hover {
+.submit.form-control:hover,
+.btn-primary:hover {
   transition: all .1s;
   background: #3aabca;
 }
 
-.submit.form-control:disabled {
+.submit.form-control:disabled,
+.btn-primary:disabled {
   transition: all .1s;
   background: #8abefa;
   border: 1px solid #ced4da;
@@ -160,4 +167,10 @@ form .spin {
 
 .carousel-control-prev-icon {
   background-image: var(--left);
+}
+
+.carousel-indicators {
+  bottom: unset;
+  position: relative;
+  margin: 0;
 }

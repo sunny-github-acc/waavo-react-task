@@ -2,16 +2,9 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import Forecast from "./Forecast";
 
-const Forecasts = ({ id, location, daily, weekly, error }) => {
+const Forecasts = ({ id, location, daily, weekly }) => {
   const [isDaily, setIsDaily] = useState(true);
   const dispatch = useDispatch();
-
-  if (error)
-    return (
-      <h5 className="forecast-wrapper font-weight-normal mb-3 alert alert-warning">
-        We could not find "{location}"
-      </h5>
-    );
 
   const date = new Date(daily[0].date);
   const month = new Intl.DateTimeFormat("en", { month: "short" }).format(date);
@@ -34,6 +27,10 @@ const Forecasts = ({ id, location, daily, weekly, error }) => {
     dispatch({
       type: "SET_PENDING",
       payload: true,
+    });
+
+    dispatch({
+      type: "UPDATE_FORECAST",
     });
 
     dispatch({
@@ -99,7 +96,7 @@ const Forecasts = ({ id, location, daily, weekly, error }) => {
           </button>
         </h3>
         {isDaily && (
-          <div className="flex">
+          <div className="flex flex-wrap">
             {Object.values(daily).map((hour, i) => {
               return (
                 <div key={hour.date + 0} className={i % 2 === 0 ? "" : "odd"}>
@@ -118,7 +115,7 @@ const Forecasts = ({ id, location, daily, weekly, error }) => {
           </div>
         )}
         {!isDaily && (
-          <div className="flex">
+          <div className="flex flex-wrap">
             {Object.values(weekly).map((day, i) => {
               return (
                 <div key={day.date + 0} className={i % 2 === 0 ? "" : "odd"}>
