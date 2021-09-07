@@ -1,6 +1,6 @@
 # Waavo task
 
-This app lets users check the weather conditions of the desired location.
+This app lets users checking the weather conditions of the desired location.
 
 ## Presentation 
 
