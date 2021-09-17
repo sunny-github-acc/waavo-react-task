@@ -9,7 +9,7 @@ This app lets users checking the weather conditions of the desired location.
 
 ## Getting Started
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) 
 
 To run it you can type:
 
